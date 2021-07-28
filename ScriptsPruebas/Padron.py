@@ -7,7 +7,7 @@ from pyspark.sql import SparkSession, Row
 spark = (SparkSession
         .builder
         .appName("Padron")
-        .getOrCreate)
+        .getOrCreate())
 
 # Imports
 from pyspark.sql.functions import trim, col

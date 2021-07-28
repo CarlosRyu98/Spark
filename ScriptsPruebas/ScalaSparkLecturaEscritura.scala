@@ -1,3 +1,5 @@
+import sys
+
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.types._
@@ -16,7 +18,7 @@ object App {
     .getOrCreate()
 
     // Definir entrada
-    val inputPath = "hdfs://192.168.10.62:9000/carlos/datos/Rango_Edades_Seccion_202012.csv"
+    val inputPath = sys.args(0) + "/datos/Rango_Edades_Seccion_202012.csv"
 
     // Crear schema para importar los datos
     val schema = StructType(
@@ -59,10 +61,10 @@ object App {
     }):_*)
 
     // Guardar en formato parquet
-    padron_df.write.format("parquet").mode("overwrite").save("hdfs://192.168.10.62:9000/carlos/outScala/PadronParquet")
+    padron_df.write.format("parquet").mode("overwrite").save(sys.args(0) + "/outScala/PadronParquet")
 
     // Guardar en formato json
-    padron_df.write.format("json").mode("overwrite").save("hdfs://192.168.10.62:9000/carlos/outScala/PadronJson")
+    padron_df.write.format("json").mode("overwrite").save(sys.args(0) + "/outScala/PadronJson")
  
   }
 
